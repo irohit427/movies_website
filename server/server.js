@@ -2,9 +2,10 @@ const express = require('express')
 const dotenv = require('dotenv')
 const { graphqlHTTP } = require('express-graphql')
 const schema = require('./schema/schema.js')
-
+const cors = require('cors');
 dotenv.config();
 const app = express();
+app.use(cors());
 //app.use(webpackMiddleware(webpack(webpackConfig)));
 
 app.get('/', (req, res) => {
