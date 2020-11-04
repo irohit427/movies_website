@@ -1,6 +1,23 @@
 .section {
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 1%;
+  margin-top: 3%;
+
   .heading {
     color: white;
-    padding: 22px 0;
+    padding-left:  76px;
+    padding-right: 76px;
+    padding-bottom: 12px;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 2%;
+  }
+  
+  .content {
+    margin-top: 4%;
+    margin-left: 5%;
+    margin-right: 5%;
   }
 }

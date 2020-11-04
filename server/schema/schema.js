@@ -10,6 +10,15 @@ const NewMovie = new graphql.GraphQLObjectType({
     }
 });
 
+const PopularShows = new graphql.GraphQLObjectType({
+    name: 'PopularShows',
+    fields: {
+        id: {type: graphql.GraphQLInt},
+        poster_path: {type: graphql.GraphQLString},
+        original_name: {type: graphql.GraphQLString}
+    }
+})
+
 const Trailer = new graphql.GraphQLObjectType({
     name: 'Trailer',
     fields: {
@@ -93,8 +102,19 @@ const RootQuery = new graphql.GraphQLObjectType({
                 return axios.get(`https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.API}&language=en-US&page=1`)
                     .then(response => {
                         const movies = response.data.results;
-                        movies.map(movie => movie.poster_path = "https://image.tmdb.org/t/p/w500"+movie.poster_path)
+                        movies.map(movie => movie.poster_path = "https://image.tmdb.org/t/p/w500" + movie.poster_path)
                         return movies;
+                    })
+            }
+        },
+        newShows: {
+            type: new graphql.GraphQLList(PopularShows),
+            resolve() {
+                return axios.get(`https://api.themoviedb.org/3/tv/popular?api_key=${process.env.API}&language=en-US&page=1`)
+                    .then(response => {
+                        const shows = response.data.results;
+                        shows.map(show => show.poster_path = "https://image.tmdb.org/t/p/w500" + show.poster_path);
+                        return shows;
                     })
             }
         },

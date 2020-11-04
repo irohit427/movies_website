@@ -1,0 +1,113 @@
+// .slider-container {
+// 	overflow-x: hidden;
+//   scroll-behavior: smooth;
+//   display: flex;
+//   flex-direction: row;
+//   align-items: center;
+//   justify-content: space-between;
+//   width: 100%;
+//   .nextSlider {
+//     padding-left: 40px;
+//   }
+
+//   .prevSlider {
+//     padding-right: 40px;
+//   }
+
+//   .slider-wrapper {
+//     width: 80%;
+//     display: flex;
+//     justify-content: space-between;
+//   }
+// } 
+
+
+// .disable {
+// 	opacity: 0.5;
+//   pointer-events: none;
+// }
+
+// .slider-container {
+//   overflow-x: hidden;
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: space-between;
+//   align-items: center;
+//   scroll-behavior: smooth;
+// }
+
+// .slider-wrapper {
+//   margin-left: 50px;
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: space-between;
+// }
+
+// .prev {
+//   left: 1rem;
+//   position: absolute;
+//   cursor: pointer;
+//   width: 20px;
+//   height: 20px;
+//   color: white;
+//   margin-right: 40px;
+// }
+
+// .next {
+//   right: 6rem;
+//   position: absolute;
+//   cursor: pointer;
+//   width: 20px;
+//   height: 20px;
+//   color: white;
+//   margin-left: 100px;
+// }
+
+// .disable {
+//   opacity: 0.5;
+//   pointer-events: none;
+// }
+
+// .child {
+//   padding: 18px 18px;
+//   text-align: center;
+// }
+
+.slider-container {
+  /* if you want to have a scrollbar, you can add overflow here */ 
+  overflow-x: hidden;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 0rem 2rem;
+  scroll-behavior: smooth;
+}
+.slider-wrapper {
+  display: flex;
+  align-items: center;
+}
+.btn {
+  position: absolute;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  color: white;
+}
+.prev {
+  left: 1rem;
+  margin-left: -5%
+}
+.next {
+  right: 1rem;
+  margin-right: -2%;
+}
+.disable {
+  opacity: 0.5;
+  visibility: hidden;
+  pointer-events: none;
+}
+.child {
+  text-align: center;
+  width: 100%;
+  margin-right: 1%;
+}
