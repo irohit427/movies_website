@@ -1,0 +1,42 @@
+.container {
+  background-color: #212121;
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 60px;
+  .poster {
+    z-index: 1;
+  }
+
+  .info-section {
+    border-radius: 5px;
+    background-color: #000;
+    z-index: 0;
+    color: #ffab00;
+    padding-left:  120px;
+    width: 700px;
+    height: 340px;
+    padding-top: 40px;
+    .title {
+      font-size: 24px;
+      font-weight: bold;
+      padding-bottom: 40px;
+    }
+    .info {
+      .metadata {
+        span {
+          color: whitesmoke;
+          font-size: 12px;
+          opacity: 0.8;
+        }
+
+        p {
+          font-size: 14px;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}

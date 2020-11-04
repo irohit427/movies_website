@@ -3,7 +3,7 @@ import React from 'react';
 import './Carousel.scss'
 
 const contentStyle = {
-  maxHeight: '360px',
+  maxHeight: '480px',
   color: '#fff',
   lineHeight: '160px',
   textAlign: 'center',

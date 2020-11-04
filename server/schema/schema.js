@@ -15,9 +15,18 @@ const PopularShows = new graphql.GraphQLObjectType({
     fields: {
         id: {type: graphql.GraphQLInt},
         poster_path: {type: graphql.GraphQLString},
-        original_name: {type: graphql.GraphQLString}
+        name: {type: graphql.GraphQLString}
     }
-})
+});
+
+const TopRatedMovies = new graphql.GraphQLObjectType({
+    name: 'TopRatedMovies',
+    fields: {
+        id: {type: graphql.GraphQLInt},
+        poster_path: {type: graphql.GraphQLString},
+        title: {type: graphql.GraphQLString}
+    }
+});
 
 const Trailer = new graphql.GraphQLObjectType({
     name: 'Trailer',
@@ -27,14 +36,32 @@ const Trailer = new graphql.GraphQLObjectType({
     }
 });
 
-const MovieCredits = new graphql.GraphQLObjectType({
-    name: 'MovieCredits',
-    fields:{
-        id: {type: graphql.GraphQLString},
+const Cast = new graphql.GraphQLObjectType({
+    name: 'Cast',
+    fields: {
         character: {type: graphql.GraphQLString},
         name: {type: graphql.GraphQLString},
         profile_path: {type: graphql.GraphQLString},
-        order: {type: graphql.GraphQLString}
+        order: {type: graphql.GraphQLString},
+    }
+})
+
+const Crew = new graphql.GraphQLObjectType({
+    name: 'Crew',
+    fields: {
+        name: {type: graphql.GraphQLString},
+        profile_path: {type: graphql.GraphQLString},
+        job: {type: graphql.GraphQLString},
+        department: {type: graphql.GraphQLString},
+        id: {type: graphql.GraphQLString}
+    }
+})
+const MovieCredits = new graphql.GraphQLObjectType({
+    name: 'MovieCredits',
+    fields: {
+        id: {type: graphql.GraphQLString},
+        crew: {type: new graphql.GraphQLList(Crew)},
+        cast: {type: new graphql.GraphQLList(Cast)}
     }
 })
 const MovieReviews = new graphql.GraphQLObjectType({
@@ -58,6 +85,7 @@ const MovieInfo = new graphql.GraphQLObjectType({
         vote_average: {type: graphql.GraphQLString},
         production_companies: {type: graphql.GraphQLString},
         runtime: {type: graphql.GraphQLString},
+        original_language: {type: graphql.GraphQLString},
         videos: {
             type: new graphql.GraphQLList(Trailer),
             args: {id: { type: graphql.GraphQLString } },
@@ -75,11 +103,15 @@ const MovieInfo = new graphql.GraphQLObjectType({
             }
           },
           movieCredits: {
-            type: new graphql.GraphQLList(MovieCredits),
+            type: MovieCredits,
             args: {id: {type: graphql.GraphQLString}},
             resolve(parentValue, args) {
               return axios.get(`https://api.themoviedb.org/3/movie/${parentValue.id}/credits?api_key=${process.env.API}&language=en-US&page=1`)
-              .then(res =>  res.data.cast.filter(cast => cast.profile_path))
+              .then(res => {
+                  const credits = res.data;
+                  credits.cast.map(c => c.profile_path = "https://image.tmdb.org/t/p/w500"+ c.profile_path);
+                  return credits;
+              })
             }
           }
     }
@@ -116,6 +148,17 @@ const RootQuery = new graphql.GraphQLObjectType({
                         shows.map(show => show.poster_path = "https://image.tmdb.org/t/p/w500" + show.poster_path);
                         return shows;
                     })
+            }
+        },
+        topRatedMovies: {
+            type: new graphql.GraphQLList(TopRatedMovies),
+            resolve() {
+                return axios.get(`https://api.themoviedb.org/3/movie/top_rated?api_key=${process.env.API}&language=en-US&page=1`)
+                .then(response => {
+                    const movies = response.data.results;
+                    movies.map(movie => movie.poster_path = "https://image.tmdb.org/t/p/w500" + movie.poster_path);
+                    return movies;
+                })
             }
         },
         movieInfo: {

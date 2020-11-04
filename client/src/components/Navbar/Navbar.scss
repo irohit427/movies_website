@@ -24,19 +24,26 @@
   
   a {
     text-decoration: none;
-    color: whitesmoke;
+    color: white;
     text-transform: uppercase;
-    opacity: 0.6;
+    opacity: 0.8;
     font-size: 14px;
     transition: all .2s ease-in-out;
+    font-weight: bold;
     padding: 0 15px;
 
     &:hover {
-      color: white;
+      color: #ffab00;
       font-weight: bold;
       opacity: 1;
       transform: scale(1.5);  
       font-size: 16px;      
     }
+  }
+
+  .active {
+    color: #ffab00; 
+    border-bottom: 4px solid #ffab00;
+    padding-bottom: 12px;
   }
 }

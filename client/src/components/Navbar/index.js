@@ -7,7 +7,7 @@ export default function index() {
       <div className="header">
         <ul className="navbar-nav">
           <li className="nav-items">
-            <a href="/home">Home</a>
+            <a href="/home" className="active">Home</a>
           </li>
           <li className="nav-items">
             <a href="/movies">Movies</a>

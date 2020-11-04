@@ -1,0 +1,28 @@
+.footer-container {
+  min-height: 60px;
+  max-height: 60px;
+  background-color: #ffab00;
+  .navs {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: whitesmoke;
+    justify-content: space-between;
+    padding: 0 200px;  
+    list-style: none;
+    
+    li {
+      padding-top: 12px;
+      text-align: left;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    .title {
+      font-size: 22px;
+      font-weight: bolder;
+    }
+  }
+  i {
+    margin-right: 8px;
+  }
+}

@@ -4,6 +4,7 @@ import Slider from '../Slider';
 import { useQuery } from '@apollo/client'
 import './Section.scss'
 import GET_MOVIES from '../../helpers/queries/getMovies';
+import { Link } from 'react-router-dom';
 
 const { Meta } = Card;
 const Section = ({title, data}) => {
@@ -17,9 +18,11 @@ const Section = ({title, data}) => {
               {data.map(d => {
                 return (
                 <div key={d.id} className="child">
-                  <Card hoverable style={{ width: 240 }} cover={<img alt="example" src={d.poster_path} />}>
-                    <Meta title={d.title || d.original_name} />
-                  </Card>
+                  <Link to={"/info/"+d.id} >
+                    <Card hoverable style={{ width: 240 }} cover={<img alt="example" src={d.poster_path} />}>
+                      <Meta title={d.title || d.name} />
+                    </Card>
+                  </Link>
                 </div>
                 );
               })}
