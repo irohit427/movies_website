@@ -20,4 +20,30 @@
     margin-left: 5%;
     margin-right: 5%;
   }
+  .movie-card{
+    width: 220px;
+    height: 420px;
+    .movie-meta {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      .movie-title {
+        padding-top: 4px;
+        font-size: 16px;
+        color: whitesmoke;
+        opacity: 0.9;
+        font-weight: bold;
+        padding-left: 10px;
+      }
+
+      .movie-score {
+        padding-top: 4px;
+        color: #ffab00;
+        font-weight: bold;
+        font-size: 24px;
+        padding-right: 10px;
+      }
+    }
+  }
 }

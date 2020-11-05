@@ -6,6 +6,7 @@ const TOP_RATED_MOVIES = gql`
         id
         poster_path
         title
+        vote_average
     }
 }
 `

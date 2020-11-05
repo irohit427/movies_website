@@ -7,7 +7,7 @@ const NewMovie = new graphql.GraphQLObjectType({
         id: {type: graphql.GraphQLInt},
         poster_path: {type: graphql.GraphQLString},
         title: {type: graphql.GraphQLString},
-        vote_average: {type: graphql.GraphQLString},
+        vote_average: {type: graphql.GraphQLString}
     }
 });
 
@@ -16,7 +16,8 @@ const PopularShows = new graphql.GraphQLObjectType({
     fields: {
         id: {type: graphql.GraphQLInt},
         poster_path: {type: graphql.GraphQLString},
-        name: {type: graphql.GraphQLString}
+        name: {type: graphql.GraphQLString},
+        vote_average: {type: graphql.GraphQLString}
     }
 });
 
@@ -25,7 +26,8 @@ const TopRatedMovies = new graphql.GraphQLObjectType({
     fields: {
         id: {type: graphql.GraphQLInt},
         poster_path: {type: graphql.GraphQLString},
-        title: {type: graphql.GraphQLString}
+        title: {type: graphql.GraphQLString},
+        vote_average: {type: graphql.GraphQLString},
     }
 });
 

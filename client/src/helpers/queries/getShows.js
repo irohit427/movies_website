@@ -6,6 +6,7 @@ query {
         id
         poster_path
         name
+        vote_average
     }
 }
 `
