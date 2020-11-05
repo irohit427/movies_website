@@ -1,0 +1,41 @@
+.movies-container {
+  width: 80%;
+  
+  margin: 0 10%;
+  padding-left: 40px;
+  .movieList-heading {
+    font-size: 24px;
+    font-weight: bolder;
+    color: whitesmoke;
+    opacity: 0.9;
+  }
+
+  .movieList-container {
+    margin-bottom: 60px;
+    .movie-card{
+      width: 220px;
+      padding: 0 15px;
+      .movie-meta {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        .movie-title {
+          padding-top: 4px;
+          font-size: 16px;
+          color: whitesmoke;
+          opacity: 0.9;
+          font-weight: bold;
+        }
+
+        .movie-score {
+          padding-top: 4px;
+          color: #ffab00;
+          font-weight: bold;
+          font-size: 24px;
+        }
+      }
+      
+    }
+  }
+}
