@@ -7,10 +7,12 @@ export default function index() {
   return (
     <div className="navbar">
       <div className="header">
-        <div className="brand"> 
-          <Image src={window.location.origin +'/logo.png'} width={40} />
-          <span className="brand-name">metacritic</span>
-        </div>
+        <NavLink to="/home" >
+          <div className="brand"> 
+            <Image src={window.location.origin +'/logo.png'} width={40} />
+            <span className="brand-name">metacritic</span>
+          </div>
+        </NavLink>
         <ul className="navbar-nav">
           <li className="nav-items">
             <NavLink to="/home">Home</NavLink>

@@ -6,3 +6,19 @@
   flex-direction: column;
   margin-bottom: 54px;
 }
+
+.ant-carousel .slick-dots li button {
+  background: black;
+  opacity: 0.4;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%
+}
+
+.ant-carousel .slick-dots li.slick-active button {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  opacity: 1;
+  background: #ffab00;
+}
