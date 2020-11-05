@@ -1,5 +1,6 @@
 import React from 'react'
 import './Navbar.scss'
+import { NavLink } from 'react-router-dom';
 
 export default function index() {
   return (
@@ -7,16 +8,16 @@ export default function index() {
       <div className="header">
         <ul className="navbar-nav">
           <li className="nav-items">
-            <a href="/home" className="active">Home</a>
+            <NavLink to="/home">Home</NavLink>
           </li>
           <li className="nav-items">
-            <a href="/movies">Movies</a>
+            <NavLink to="/movies">Movies</NavLink>
           </li>
           <li className="nav-items">
-            <a href="/tv-shows">TV Shows</a>
+            <NavLink to="/tv-shows">TV Shows</NavLink>
           </li>
           <li className="nav-items">
-            <a href="/kids">Kids</a>
+            <NavLink to="/kids">Kids</NavLink>
           </li>
         </ul>
       </div>

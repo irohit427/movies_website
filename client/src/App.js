@@ -10,8 +10,8 @@ import Movies from './pages/Movies';
 function App() {
   return (
     <div className="app">
-      <Navbar />
       <BrowserRouter>
+      <Navbar />
         <Switch>
           <Route exact path={["/", "/home"]} component={Home} />
           <Route path="/info/:id" component={MovieInfo} />
