@@ -1,0 +1,63 @@
+.tvShowInfo-heading {
+  padding-left: 60px;
+  color: whitesmoke;
+  font-size: 24px;
+  font-weight: bold;
+  padding-bottom: 22px;
+}
+.card-container {
+  width: 90%;
+  padding-left: 60px;
+  padding-bottom: 60px;
+}
+.card-container > .ant-tabs-card .ant-tabs-content {
+  height: 400px;
+}
+
+.ant-tabs-nav {
+  background-color: #212121;
+}
+
+.card-container > .ant-tabs-card .ant-tabs-content > .ant-tabs-tabpane {
+}
+
+.card-container > .ant-tabs-card > .ant-tabs-nav::before {
+  background: #212121;
+  display: none;
+}
+
+.seasons-info {
+  display: flex;
+  flex-direction: row;
+  .info-right{
+    padding-left: 40px;
+    .info-heading {
+      font-size: 24px;
+      color: #ffab00;
+      font-weight: bold;
+    }
+    .meta-section {
+      padding-top: 18px;
+      .metadata {
+        span {
+          color: whitesmoke;
+          font-size: 12px;
+          opacity: 0.8;
+        }
+  
+        p {
+          color: #ffab00;
+          font-size: 14px;
+          font-weight: bold;
+        }
+      }
+    }
+    
+    .overview {
+      color: whitesmoke;
+      opacity: 0.9;
+      text-align: justify;
+      font-size: 14px;
+    }
+  }
+}

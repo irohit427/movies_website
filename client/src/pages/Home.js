@@ -31,9 +31,9 @@ const Home = () => {
       {/* <Navbar /> */}
       <CarouselSection />
       <div className="container">
-        <Section title="New Arrival" data={new_arrival.newMovies} />
-        <Section title="Popular TV Shows" data={popular_shows.newShows} />
-        <Section title="Top Rated Movies" data={tr_movies.topRatedMovies} />
+        <Section title="New Arrival" data={new_arrival.newMovies} type="movie" />
+        <Section title="Popular TV Shows" data={popular_shows.newShows} type="tv" />
+        <Section title="Top Rated Movies" data={tr_movies.topRatedMovies} type="movie" />
         <BlogSection />
         <Newsletter />
       </div>

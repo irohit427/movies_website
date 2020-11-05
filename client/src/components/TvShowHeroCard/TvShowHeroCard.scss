@@ -1,0 +1,44 @@
+.movieInfoCard-container {
+  padding-left: 60px;
+  .poster {
+    padding-top: 12px;
+  }
+  .info-section {
+    color: #ffab00;
+    padding-left:  120px;
+    padding-top: 12px;
+    .title {
+      font-size: 24px;
+      font-weight: bold;
+      padding-bottom: 20px;
+    }
+    .overview {
+      width: 80%;
+      text-align: justify;
+      color: whitesmoke;
+      font-size: 14px;
+      opacity: 0.8;
+      padding-bottom: 12px;
+    }
+    .info {
+      .info-left {
+        padding-right: 20px;
+      }
+      .info-right {
+        padding-left: 20px;
+      }
+      .metadata {
+        span {
+          color: whitesmoke;
+          font-size: 12px;
+          opacity: 0.8;
+        }
+
+        p {
+          font-size: 14px;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}

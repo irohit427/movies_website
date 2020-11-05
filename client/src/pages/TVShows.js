@@ -2,7 +2,7 @@ import React from 'react'
 import './Movies.scss'
 import { useQuery } from '@apollo/client'
 import Loader from '../components/Loader';
-import GET_MOVIES from '../helpers/queries/getMovies'
+import GET_SHOWS from '../helpers/queries/getShows'
 import { Image, Row } from 'antd';
 import { Link } from 'react-router-dom';
 
@@ -11,27 +11,27 @@ import { Link } from 'react-router-dom';
 export default function Movies({ match }) {
   console.log(match.params)
 
-  const { loading: new_arrival_loading, error: new_arrival_error, data: new_arrival } = useQuery(GET_MOVIES);
-  if (new_arrival_loading) {
+  const { loading: tv_shows_loading, error: tv_shows_error, data: tv_shows } = useQuery(GET_SHOWS);
+  if (tv_shows_loading) {
     return <Loader />
   }
   return (
     <div className="movies-container">
       <div className="movieList-heading">
-        <p>Movies</p>
+        <p>TV Shows</p>
       </div>
       <div className="movieList-container">
         {
           <Row>
             {
-              new_arrival.newMovies.map(movie => {
+              tv_shows.newShows.map(show => {
                 return (
-                  <Link to={"/movie/info/"+movie.id} >
+                  <Link to={"/tv/info/"+show.id} >
                     <div className="movie-card">
-                      <Image preview={false} width={210} height={300} src={movie.poster_path} />
+                      <Image preview={false} width={210} height={300} src={show.poster_path} />
                       <div className="movie-meta">
-                        <p className="movie-title">{movie.title}</p>
-                        <p className="movie-score">{movie.vote_average}</p>
+                        <p className="movie-title">{show.name}</p>
+                        <p className="movie-score">{show.vote_average}</p>
                       </div>
                     </div>
                   </Link>

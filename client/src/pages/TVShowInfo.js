@@ -1,37 +1,41 @@
 import React from 'react'
 import { useQuery } from '@apollo/client'
-import MOVIE_INFO from '../helpers/queries/movieInfo';
+import TVSHOW_INFO from '../helpers/queries/getTVShowInfo';
 import Loader from '../components/Loader';
-import MovieHeroCard from '../components/MovieHeroCard';
+import TvShowHeroCard from '../components/TvShowHeroCard';
 import './MovieInfo.scss'
 import { Col, Image, Row } from 'antd';
-import Section from '../components/Section';
+import SeasonSection from '../components/SeasonSection';
+import Section from '../components/Section'
 
 export default function MovieInfo({match}) {
   const id = match.params.id;
   
-  const { loading, error, data: movieInfo } = useQuery(MOVIE_INFO, {
+  const { loading, error, data: tvShowInfo } = useQuery(TVSHOW_INFO, {
         variables: { id }
   });
 
   if (loading) return <Loader />
+  else
+    console.log(tvShowInfo)
 
   return (
     <div className="movieInfo-container">
-      <MovieHeroCard data={movieInfo.movieInfo}/>
+      <TvShowHeroCard data={tvShowInfo.tvInfo}/>
       {
-        movieInfo.movieInfo.videos.length > 0 && (
-        <div className="trailer-section">
+        tvShowInfo.tvInfo.videos.length > 0 && (
+          <div className="trailer-section">
           <div className="movieInfo-heading">
             Trailer
           </div>
           <div className="trailer">
             <iframe title="movie-trailer" width="640" height="400"
-              src={movieInfo.movieInfo.videos[0].key} >
+              src={tvShowInfo.tvInfo.videos[0].key} >
             </iframe>
           </div>
         </div>
       )}
+      <SeasonSection data={tvShowInfo.tvInfo.seasons}/>
       <div className="cast-section">
         <div className="movieInfo-heading">
           Cast
@@ -39,7 +43,7 @@ export default function MovieInfo({match}) {
         <div className="cast">
           <Row justify="space-between">
           {
-            movieInfo.movieInfo.movieCredits.cast.map(
+            tvShowInfo.tvInfo.tvCredits.cast.map(
               cast => {
                 return(
                     <div className="cast-card">
@@ -60,7 +64,7 @@ export default function MovieInfo({match}) {
           </Row>
         </div>
       </div>
-      <Section title="Recommended" data={movieInfo.movieInfo.similarMovies} type="movie" />
+      <Section title="Recommended" data={tvShowInfo.tvInfo.similarTvShows} type="tv" />
     </div>
   )
 }

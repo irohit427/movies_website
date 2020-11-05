@@ -1,15 +1,25 @@
 import { gql } from '@apollo/client';
 
-const MOVIE_INFO = gql`
+const TVSHOW_INFO = gql`
 query ($id: String!) {
-    movieInfo(id: $id) {
+    tvInfo(id: $id) {
         id
         poster_path
-        title
+        name
         original_language
-        release_date
-        runtime
+        episode_run_time
+        last_air_date
         vote_average
+        number_of_episodes
+        number_of_seasons
+        created_by
+        seasons{
+          name
+          overview
+          episode_count
+          air_date
+          poster_path
+        }
         genres
         overview
 
@@ -18,7 +28,7 @@ query ($id: String!) {
           key
         }
 
-        movieCredits(id: $id) {
+        tvCredits(id: $id) {
     	    id
             crew {
               name
@@ -31,8 +41,8 @@ query ($id: String!) {
               character
             }
         }
-        similarMovies(id: $id) {
-          title
+        similarTvShows(id: $id) {
+          name
           poster_path
           vote_average
           id
@@ -41,4 +51,4 @@ query ($id: String!) {
 }
 `
 
-export default MOVIE_INFO;
+export default TVSHOW_INFO;

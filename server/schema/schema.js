@@ -21,6 +21,16 @@ const PopularShows = new graphql.GraphQLObjectType({
     }
 });
 
+const Shows = new graphql.GraphQLObjectType({
+    name: 'Shows',
+    fields: {
+        id: {type: graphql.GraphQLInt},
+        poster_path: {type: graphql.GraphQLString},
+        name: {type: graphql.GraphQLString},
+        vote_average: {type: graphql.GraphQLString}
+    }
+});
+
 const TopRatedMovies = new graphql.GraphQLObjectType({
     name: 'TopRatedMovies',
     fields: {
@@ -28,6 +38,16 @@ const TopRatedMovies = new graphql.GraphQLObjectType({
         poster_path: {type: graphql.GraphQLString},
         title: {type: graphql.GraphQLString},
         vote_average: {type: graphql.GraphQLString},
+    }
+});
+
+const Movies = new graphql.GraphQLObjectType({
+    name: 'Movies',
+    fields: {
+        id: {type: graphql.GraphQLInt},
+        poster_path: {type: graphql.GraphQLString},
+        title: {type: graphql.GraphQLString},
+        vote_average: {type: graphql.GraphQLString}
     }
 });
 
@@ -57,6 +77,17 @@ const Crew = new graphql.GraphQLObjectType({
         job: {type: graphql.GraphQLString},
         department: {type: graphql.GraphQLString},
         id: {type: graphql.GraphQLString}
+    }
+})
+
+const Season = new graphql.GraphQLObjectType({
+    name: 'Seasons',
+    fields: {
+        name: {type: graphql.GraphQLString},
+        overview: {type: graphql.GraphQLString},
+        episode_count: {type: graphql.GraphQLInt},
+        air_date: {type: graphql.GraphQLString},
+        poster_path: {type: graphql.GraphQLString},
     }
 })
 
@@ -112,20 +143,32 @@ const MovieInfo = new graphql.GraphQLObjectType({
               return axios.get(`https://api.themoviedb.org/3/movie/${parentValue.id}/reviews?api_key=${process.env.API}&language=en-US&page=1`)
               .then(res =>  res.data.results)
             }
-          },
-          movieCredits: {
+        },
+        movieCredits: {
             type: Credits,
             args: {id: {type: graphql.GraphQLString}},
             resolve(parentValue, args) {
-              return axios.get(`https://api.themoviedb.org/3/movie/${parentValue.id}/credits?api_key=${process.env.API}&language=en-US&page=1`)
-              .then(res => {
-                  const credits = res.data;
-                  credits.cast = credits.cast.filter(c => c.profile_path != null)
-                  credits.cast.map(c => c.profile_path = "https://image.tmdb.org/t/p/w500"+ c.profile_path);
-                  return credits;
-              })
+                return axios.get(`https://api.themoviedb.org/3/movie/${parentValue.id}/credits?api_key=${process.env.API}&language=en-US&page=1`)
+                .then(res => {
+                    const credits = res.data;
+                    credits.cast = credits.cast.filter(c => c.profile_path != null)
+                    credits.cast.map(c => c.profile_path = "https://image.tmdb.org/t/p/w500"+ c.profile_path);
+                    return credits;
+                })
             }
-          }
+        },
+        similarMovies: {
+            type: new graphql.GraphQLList(Movies),
+            args: {id: {type: graphql.GraphQLString}},
+            resolve(parentValue, args) {
+                return axios.get(`https://api.themoviedb.org/3/movie/${parentValue.id}/recommendations?api_key=${process.env.API}&language=en-US&page=1`)
+                .then(res => {
+                    const movies = res.data.results;
+                    movies.map(movie => movie.poster_path = "https://image.tmdb.org/t/p/w500" + movie.poster_path);
+                    return movies;
+                })
+            }
+        }
     }
 });
 
@@ -134,14 +177,19 @@ const TVInfo = new graphql.GraphQLObjectType({
     name: 'TVInfo',
     fields: {
         id: {type: graphql.GraphQLInt},
-        title: {type: graphql.GraphQLString},
+        name: {type: graphql.GraphQLString},
         poster_path: {type: graphql.GraphQLString},
         genres: {type: graphql.GraphQLString},
         overview: {type: graphql.GraphQLString},
         vote_average: {type: graphql.GraphQLString},
+        last_air_date: {type: graphql.GraphQLString},
         production_companies: {type: graphql.GraphQLString},
         episode_run_time: {type: graphql.GraphQLString},
         original_language: {type: graphql.GraphQLString},
+        created_by: {type: graphql.GraphQLString},
+        number_of_episodes: {type: graphql.GraphQLInt},
+        seasons: {type: new graphql.GraphQLList(Season)},
+        number_of_seasons: { type: graphql.GraphQLInt },
         videos: {
             type: new graphql.GraphQLList(Trailer),
             args: {id: { type: graphql.GraphQLString } },
@@ -163,20 +211,32 @@ const TVInfo = new graphql.GraphQLObjectType({
               return axios.get(`https://api.themoviedb.org/3/tv/${parentValue.id}/reviews?api_key=${process.env.API}&language=en-US&page=1`)
               .then(res =>  res.data.results)
             }
-          },
-          tvCredits: {
-            type: Credits,
+        },
+        tvCredits: {
+        type: Credits,
+        args: {id: {type: graphql.GraphQLString}},
+        resolve(parentValue, args) {
+            return axios.get(`https://api.themoviedb.org/3/tv/${parentValue.id}/credits?api_key=${process.env.API}&language=en-US&page=1`)
+            .then(res => {
+                const credits = res.data;
+                credits.cast = credits.cast.filter(c => c.profile_path != null)
+                credits.cast.map(c => c.profile_path = "https://image.tmdb.org/t/p/w500"+ c.profile_path);
+                return credits;
+            })
+        }
+        },
+        similarTvShows: {
+            type: new graphql.GraphQLList(Shows),
             args: {id: {type: graphql.GraphQLString}},
             resolve(parentValue, args) {
-              return axios.get(`https://api.themoviedb.org/3/tv/${parentValue.id}/credits?api_key=${process.env.API}&language=en-US&page=1`)
-              .then(res => {
-                  const credits = res.data;
-                  credits.cast = credits.cast.filter(c => c.profile_path != null)
-                  credits.cast.map(c => c.profile_path = "https://image.tmdb.org/t/p/w500"+ c.profile_path);
-                  return credits;
-              })
+                return axios.get(`https://api.themoviedb.org/3/tv/${parentValue.id}/recommendations?api_key=${process.env.API}&language=en-US&page=1`)
+                .then(res => {
+                    const tvShows = res.data.results;
+                    tvShows.map(tvShow => tvShow.poster_path = "https://image.tmdb.org/t/p/w500" + tvShow.poster_path);
+                    return tvShows;
+                })
             }
-          }
+        }
     }
 });
 
@@ -251,7 +311,9 @@ const RootQuery = new graphql.GraphQLObjectType({
                     const tvShow = res.data;
                     tvShow.poster_path = "https://image.tmdb.org/t/p/w500"+tvShow.poster_path
                     tvShow.genres = tvShow.genres.map(g => g.name).join(', ')
+                    tvShow.created_by = tvShow.created_by.map(d => d.name).join(', ')
                     tvShow.production_companies = tvShow.production_companies.map(g => g.name).join(', ')
+                    tvShow.seasons.map(s => s.poster_path = "https://image.tmdb.org/t/p/w500" + s.poster_path)
                     tvShow.episode_run_time+= ' min.'
                     return tvShow
                 })

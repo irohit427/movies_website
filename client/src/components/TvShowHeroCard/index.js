@@ -1,20 +1,20 @@
 import { Col, Image, Row } from 'antd';
 import React from 'react'
-import './HeroCard.scss'
+import './TvShowHeroCard.scss'
 import getLanguage from '../../helpers/utils/localeMapper';
 import getCrew from '../../helpers/utils/getCrew';
 
-const MovieInfoHeroCard = ({ data }) => {
+const TVShowHeroCard = ({ data }) => {
   return (
     <div>
       <Row className="movieInfoCard-container">
         <Col span={4} className="poster">
-          <Image preview={false} width={200} src={data.poster_path} />
+          <Image preview={false} width={240} src={data.poster_path} />
         </Col>
         <Col span={20}className="info-section">
           <Row>
               <div className="title">
-                {data.title}
+                {data.name}
               </div>
           </Row>
           <Row>
@@ -29,12 +29,16 @@ const MovieInfoHeroCard = ({ data }) => {
                 <p>{getLanguage(data.original_language)}</p>
               </div>
               <div className="metadata">
-                <span>Release Date</span>
-                <p>{data.release_date}</p>
+                <span>Last Air Date</span>
+                <p>{data.last_air_date}</p>
               </div>
               <div className="metadata">
-                <span>Runtime</span>
-                <p>{data.runtime}</p>
+                <span>Episode Runtime</span>
+                <p>{data.episode_run_time}</p>
+              </div>
+              <div className="metadata">
+                <span>No of Seasons</span>
+                <p>{data.number_of_seasons}</p>
               </div>
             </Col>
             <Col flex={2} className="info-right">
@@ -47,8 +51,12 @@ const MovieInfoHeroCard = ({ data }) => {
                 <p>{data.genres}</p>
               </div>
               <div className="metadata">
-                <span>Director</span>
-                <p>{getCrew(data.movieCredits.crew, 'Director')}</p>
+                <span>Created By</span>
+                <p>{data.created_by}</p>
+              </div>
+              <div className="metadata">
+                <span>No of Episodes</span>
+                <p>{data.number_of_episodes}</p>
               </div>
             </Col>
           </Row>
@@ -58,4 +66,4 @@ const MovieInfoHeroCard = ({ data }) => {
   )
 }
 
-export default MovieInfoHeroCard;
+export default TVShowHeroCard;

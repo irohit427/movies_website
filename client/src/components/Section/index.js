@@ -6,8 +6,7 @@ import './Section.scss'
 import GET_MOVIES from '../../helpers/queries/getMovies';
 import { Link } from 'react-router-dom';
 
-const { Meta } = Card;
-const Section = ({title, data}) => {
+const Section = ({title, data, type}) => {
   return (
     <div className="section">
       <div className="heading">{title}</div>
@@ -18,7 +17,7 @@ const Section = ({title, data}) => {
               {data.map(d => {
                 return (
                 <div key={d.id} className="child">
-                  <Link to={"/info/"+d.id} >
+                  <Link to={`/${type}/info/${d.id}`} >
                     <div className="movie-card">
                       <Image preview={false} width={210} height={300} src={d.poster_path} />
                       <div className="movie-meta">
