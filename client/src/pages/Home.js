@@ -1,5 +1,4 @@
 import React from 'react'
-import Navbar from '../components/Navbar'
 import { useQuery } from '@apollo/client'
 import Loader from '../components/Loader';
 import CarouselSection from '../components/Carousel'
@@ -9,7 +8,7 @@ import GET_SHOWS from '../helpers/queries/getShows';
 import TOP_RATED_MOVIES from '../helpers/queries/topRatedMovies';
 import BlogSection from '../components/BlogSection'
 import Newsletter from '../components/Newsletter'
-import Footer from '../components/Footer';
+import './Home.scss'
 
 const Home = () => {
   const { loading: new_arrival_loading, error: new_arrival_error, data: new_arrival } = useQuery(GET_MOVIES);
@@ -22,20 +21,22 @@ const Home = () => {
     console.log(new_arrival)
     console.log(popular_shows)
     console.log(tr_movies)
+    console.log(new_arrival_error)
+    console.log(popular_shows_error)
+    console.log(tr_movies_error)
   }
-
+  
   return (
     <div className="home">
-      <Navbar />
+      {/* <Navbar /> */}
       <CarouselSection />
       <div className="container">
         <Section title="New Arrival" data={new_arrival.newMovies} />
         <Section title="Popular TV Shows" data={popular_shows.newShows} />
         <Section title="Top Rated Movies" data={tr_movies.topRatedMovies} />
-        {/* <BlogSection /> */}
+        <BlogSection />
         <Newsletter />
       </div>
-      <Footer />
     </div>
   )
 }

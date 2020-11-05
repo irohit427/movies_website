@@ -28,6 +28,7 @@ query ($id: String!) {
             cast {
               name
               profile_path
+              character
             }
         }
     }

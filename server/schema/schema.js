@@ -91,7 +91,13 @@ const MovieInfo = new graphql.GraphQLObjectType({
             args: {id: { type: graphql.GraphQLString } },
             resolve(parentValue, args) {
                return axios.get(`https://api.themoviedb.org/3/movie/${parentValue.id}/videos?api_key=${process.env.API}&language=en-US`)
-               .then(res => res.data.results)
+               .then(res => {
+                   const trailers = res.data.results;
+                   trailers.map(trailer => {
+                       trailer.key = 'https://www.youtube.com/embed/' + trailer.key
+                   })
+                   return trailers;
+               })
             }
         },
         movieReviews: {
@@ -109,6 +115,7 @@ const MovieInfo = new graphql.GraphQLObjectType({
               return axios.get(`https://api.themoviedb.org/3/movie/${parentValue.id}/credits?api_key=${process.env.API}&language=en-US&page=1`)
               .then(res => {
                   const credits = res.data;
+                  credits.cast = credits.cast.filter(c => c.profile_path != null)
                   credits.cast.map(c => c.profile_path = "https://image.tmdb.org/t/p/w500"+ c.profile_path);
                   return credits;
               })

@@ -1,30 +1,32 @@
-.container {
-  background-color: #212121;
-  width: 80%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  padding-bottom: 60px;
+.movieInfoCard-container {
+  padding-left: 60px;
   .poster {
-    z-index: 1;
+    padding-top: 12px;
   }
-
   .info-section {
-    border-radius: 5px;
-    background-color: #000;
-    z-index: 0;
     color: #ffab00;
     padding-left:  120px;
-    width: 700px;
-    height: 340px;
-    padding-top: 40px;
+    padding-top: 12px;
     .title {
       font-size: 24px;
       font-weight: bold;
-      padding-bottom: 40px;
+      padding-bottom: 20px;
+    }
+    .overview {
+      width: 80%;
+      text-align: justify;
+      color: whitesmoke;
+      font-size: 14px;
+      opacity: 0.8;
+      padding-bottom: 12px;
     }
     .info {
+      .info-left {
+        padding-right: 20px;
+      }
+      .info-right {
+        padding-left: 20px;
+      }
       .metadata {
         span {
           color: whitesmoke;

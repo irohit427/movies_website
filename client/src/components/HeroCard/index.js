@@ -2,20 +2,25 @@ import { Col, Image, Row } from 'antd';
 import React from 'react'
 import './HeroCard.scss'
 import getLanguage from '../../helpers/utils/localeMapper';
-import Meta from 'antd/lib/card/Meta';
+import getCrew from '../../helpers/utils/getCrew';
 
 const MovieInfoHeroCard = ({ data }) => {
   return (
     <div>
-      <Row className="container">
-        <Col span={3} className="poster">
+      <Row className="movieInfoCard-container">
+        <Col span={4} className="poster">
           <Image width={200} src={data.poster_path} />
         </Col>
-        <Col className="info-section">
+        <Col span={20}className="info-section">
           <Row>
               <div className="title">
                 {data.title}
               </div>
+          </Row>
+          <Row>
+            <div className="overview">
+              {data.overview}
+            </div>
           </Row>
           <Row className="info">
             <Col flex={2} className="info-left">
@@ -40,6 +45,10 @@ const MovieInfoHeroCard = ({ data }) => {
               <div className="metadata">
                 <span>Genre</span>
                 <p>{data.genres}</p>
+              </div>
+              <div className="metadata">
+                <span>Director</span>
+                <p>{getCrew(data.movieCredits.crew, 'Director')}</p>
               </div>
             </Col>
           </Row>
