@@ -8,7 +8,7 @@
   border-radius: 0;
   z-index: 1;
   .header {
-    color: whitesmoke;
+    
     display: flex;
     align-items: center;
     padding: 5px 0;
@@ -23,6 +23,8 @@
         font-size: 28px;
         font-weight: bolder;
         padding: 0 10px;
+        text-decoration: none;
+        color: whitesmoke;
       }
     }
   }
@@ -62,7 +64,7 @@
 
   .active {
     color: #ffab00; 
-    border-bottom: 4px solid #ffab00;
-    padding-bottom: 12px;
+    border-bottom: 8px solid #ffab00;
+    
   }
 }

@@ -1,6 +1,7 @@
 import { Carousel } from 'antd';
 import React from 'react';
 import './Carousel.scss'
+import "antd/dist/antd.css";
 
 const contentStyle = {
   maxHeight: '480px',
