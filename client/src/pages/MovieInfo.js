@@ -60,7 +60,11 @@ export default function MovieInfo({match}) {
           </Row>
         </div>
       </div>
-      <Section title="Recommended" data={movieInfo.movieInfo.similarMovies} type="movie" />
+      {
+        movieInfo.movieInfo.similarMovies.length > 0 && (
+          <Section title="Recommended" data={movieInfo.movieInfo.similarMovies} type="movie" />
+        )
+      }
     </div>
   )
 }
