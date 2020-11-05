@@ -59,16 +59,18 @@ const Crew = new graphql.GraphQLObjectType({
         id: {type: graphql.GraphQLString}
     }
 })
-const MovieCredits = new graphql.GraphQLObjectType({
-    name: 'MovieCredits',
+
+const Credits = new graphql.GraphQLObjectType({
+    name: 'Credits',
     fields: {
         id: {type: graphql.GraphQLString},
         crew: {type: new graphql.GraphQLList(Crew)},
         cast: {type: new graphql.GraphQLList(Cast)}
     }
 })
-const MovieReviews = new graphql.GraphQLObjectType({
-    name: 'MovieReviews',
+
+const Reviews = new graphql.GraphQLObjectType({
+    name: 'Reviews',
     fields:{
         id: {type: graphql.GraphQLString},
         content: {type: graphql.GraphQLString},
@@ -104,7 +106,7 @@ const MovieInfo = new graphql.GraphQLObjectType({
             }
         },
         movieReviews: {
-            type: new graphql.GraphQLList(MovieReviews),
+            type: new graphql.GraphQLList(Reviews),
             args: {id: {type: graphql.GraphQLString}},
             resolve(parentValue, args) {
               return axios.get(`https://api.themoviedb.org/3/movie/${parentValue.id}/reviews?api_key=${process.env.API}&language=en-US&page=1`)
@@ -112,7 +114,7 @@ const MovieInfo = new graphql.GraphQLObjectType({
             }
           },
           movieCredits: {
-            type: MovieCredits,
+            type: Credits,
             args: {id: {type: graphql.GraphQLString}},
             resolve(parentValue, args) {
               return axios.get(`https://api.themoviedb.org/3/movie/${parentValue.id}/credits?api_key=${process.env.API}&language=en-US&page=1`)
@@ -126,6 +128,60 @@ const MovieInfo = new graphql.GraphQLObjectType({
           }
     }
 });
+
+
+const TVInfo = new graphql.GraphQLObjectType({
+    name: 'TVInfo',
+    fields: {
+        id: {type: graphql.GraphQLInt},
+        title: {type: graphql.GraphQLString},
+        poster_path: {type: graphql.GraphQLString},
+        genres: {type: graphql.GraphQLString},
+        overview: {type: graphql.GraphQLString},
+        vote_average: {type: graphql.GraphQLString},
+        production_companies: {type: graphql.GraphQLString},
+        episode_run_time: {type: graphql.GraphQLString},
+        original_language: {type: graphql.GraphQLString},
+        videos: {
+            type: new graphql.GraphQLList(Trailer),
+            args: {id: { type: graphql.GraphQLString } },
+            resolve(parentValue, args) {
+               return axios.get(`https://api.themoviedb.org/3/tv/${parentValue.id}/videos?api_key=${process.env.API}&language=en-US`)
+               .then(res => {
+                   const trailers = res.data.results;
+                   trailers.map(trailer => {
+                       trailer.key = 'https://www.youtube.com/embed/' + trailer.key
+                   })
+                   return trailers;
+               })
+            }
+        },
+        tvReviews: {
+            type: new graphql.GraphQLList(Reviews),
+            args: {id: {type: graphql.GraphQLString}},
+            resolve(parentValue, args) {
+              return axios.get(`https://api.themoviedb.org/3/tv/${parentValue.id}/reviews?api_key=${process.env.API}&language=en-US&page=1`)
+              .then(res =>  res.data.results)
+            }
+          },
+          tvCredits: {
+            type: Credits,
+            args: {id: {type: graphql.GraphQLString}},
+            resolve(parentValue, args) {
+              return axios.get(`https://api.themoviedb.org/3/tv/${parentValue.id}/credits?api_key=${process.env.API}&language=en-US&page=1`)
+              .then(res => {
+                  const credits = res.data;
+                  credits.cast = credits.cast.filter(c => c.profile_path != null)
+                  credits.cast.map(c => c.profile_path = "https://image.tmdb.org/t/p/w500"+ c.profile_path);
+                  return credits;
+              })
+            }
+          }
+    }
+});
+
+
+
 
 const RootQuery = new graphql.GraphQLObjectType({
     name: 'RootQuery',
@@ -184,6 +240,21 @@ const RootQuery = new graphql.GraphQLObjectType({
                   movie.runtime+= ' min.'
                   return movie
               })
+            }
+        },
+        tvInfo: {
+            type: TVInfo,
+            args: {id: {type: graphql.GraphQLString}},
+            resolve(parentValue, args) {
+                return axios.get(`https://api.themoviedb.org/3/tv/${args.id}?api_key=${process.env.API}&language=en-US&page=1`)
+                .then(res => {
+                    const tvShow = res.data;
+                    tvShow.poster_path = "https://image.tmdb.org/t/p/w500"+tvShow.poster_path
+                    tvShow.genres = tvShow.genres.map(g => g.name).join(', ')
+                    tvShow.production_companies = tvShow.production_companies.map(g => g.name).join(', ')
+                    tvShow.episode_run_time+= ' min.'
+                    return tvShow
+                })
             }
         }
     }
