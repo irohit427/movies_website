@@ -7,6 +7,7 @@ const NewMovie = new graphql.GraphQLObjectType({
         id: {type: graphql.GraphQLInt},
         poster_path: {type: graphql.GraphQLString},
         title: {type: graphql.GraphQLString},
+        vote_average: {type: graphql.GraphQLString},
     }
 });
 

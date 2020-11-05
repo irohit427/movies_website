@@ -41,7 +41,7 @@ export default function MovieInfo({match}) {
                     <div className="cast-card">
                       <Row>
                         <Col span={7}>
-                          <Image width={90} height={120} src={cast.profile_path} />
+                          <Image preview={false} width={90} height={120} src={cast.profile_path} />
                         </Col>
                         <Col span={17}>
                           <p className="cast-name">{cast.name}</p>

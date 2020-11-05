@@ -9,7 +9,7 @@ const MovieInfoHeroCard = ({ data }) => {
     <div>
       <Row className="movieInfoCard-container">
         <Col span={4} className="poster">
-          <Image width={200} src={data.poster_path} />
+          <Image preview={false} width={200} src={data.poster_path} />
         </Col>
         <Col span={20}className="info-section">
           <Row>

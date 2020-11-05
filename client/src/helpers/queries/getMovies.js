@@ -6,6 +6,7 @@ const GET_MOVIES = gql`
         id
         poster_path
         title
+        vote_average
     }
 }
 `
