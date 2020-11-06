@@ -1,9 +1,12 @@
 import React from 'react'
 import './Navbar.scss'
 import { NavLink } from 'react-router-dom';
+import "antd/dist/antd.css";
 import { Image } from 'antd';
+import { Input } from 'antd';
 
 export default function index() {
+  const { Search } = Input;
   return (
     <div className="navbar">
       <div className="header">
@@ -27,6 +30,9 @@ export default function index() {
             <NavLink to="/kids">Kids</NavLink>
           </li>
         </ul>
+        <div className="search-container"> 
+          <Search bordered={false}	placeholder="input search text" style={{ width: 240 }} />
+        </div>
       </div>
     </div>
   )

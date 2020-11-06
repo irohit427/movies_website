@@ -12,8 +12,8 @@
     display: flex;
     align-items: center;
     padding: 5px 0;
-    width: 80%;
-    justify-content: flex-start;
+    width: 90%;
+    justify-content: flex-end;
     .brand {
       display: flex;
       align-items: center;
@@ -32,7 +32,7 @@
 
 
 .navbar-nav {
-  padding-left: 100px;
+  padding: 0 100px;
   list-style: none;
   display: flex;
   align-items: center;
@@ -67,4 +67,8 @@
     border-bottom: 8px solid #ffab00;
     
   }
+}
+
+.ant-input-affix-wrapper {
+  background-color: white;
 }
